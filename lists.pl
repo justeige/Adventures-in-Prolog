@@ -6,6 +6,9 @@ is_member(Element, [Element | _Tail]).
 is_member(Element, [_Head | Tail]) :-
     is_member(Element, Tail).
 
+% deterministic version: discards alternative choices with a cut:
+is_member_det(Element, [Element|_]) :- !.
+is_member_det(Element, [_|Tail]) :- is_member_det(Element, Tail).
 
 % is an 'Element' part of two lists?
 % example: in_both(A, [B,C], [1,2]).
@@ -49,3 +52,6 @@ my_flatpair([Head|Tail], L1-L3) :-
     my_flatpair(Head, L1-L2),
     my_flatpair(Tail, L2-L3).
 my_flatpair(X, [X|Z]-Z).
+
+
+
